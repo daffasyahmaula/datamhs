@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Hitung Gaji Karyawan</title>
+    <link rel="stylesheet" href="style1.css">
+</head>
+<body>
+
+<table class="gaji-box">
+    <tr>
+        <th>INPUTAN</th>
+        <th>OUTPUT</th>
+    </tr>
+    <tr>
+        <!-- INPUTAN -->
+        <td class="input-area">
+            <h3>Hitung Gaji Karyawan</h3>
+
+            <label>Gaji Pokok (Rp):</label><br>
+            <input type="number" id="gajiPokok"><br><br>
+
+            <label>Jumlah Jam Lembur:</label><br>
+            <input type="number" id="jamLembur"><br><br>
+
+            <button onclick="hitungGaji()">Hitung Gaji</button>
+        </td>
+
+        <!-- OUTPUT -->
+        <td class="output-area">
+            <p>Gaji Pokok: <span id="outPokok">-</span></p>
+            <p>Total Gaji Lembur: <span id="outLembur">-</span></p>
+            <p>Gaji Kotor: <span id="outKotor">-</span></p>
+            <p>Pajak: <span id="outPajak">-</span></p>
+            <p><b>Gaji Bersih: <span id="outBersih">-</span></b></p>
+        </td>
+    </tr>
+</table>
+
+<script>
+function hitungGaji() {
+    let gajiPokok = parseInt(document.getElementById("gajiPokok").value);
+    let jamLembur = parseInt(document.getElementById("jamLembur").value);
+
+    if (isNaN(gajiPokok) || isNaN(jamLembur)) {
+        alert("Silakan isi semua input!");
+        return;
+    }
+
+    let totalLembur = jamLembur * 20000;
+    let gajiKotor = gajiPokok + totalLembur;
+
+    let pajak;
+    if (gajiKotor < 5000000) {
+        pajak = 0.05 * gajiKotor;
+    } else if (gajiKotor <= 10000000) {
+        pajak = 0.10 * gajiKotor;
+    } else {
+        pajak = 0.15 * gajiKotor;
+    }
+
+    let gajiBersih = gajiKotor - pajak;
+
+    document.getElementById("outPokok").innerHTML = "Rp " + gajiPokok.toLocaleString();
+    document.getElementById("outLembur").innerHTML = "Rp " + totalLembur.toLocaleString();
+    document.getElementById("outKotor").innerHTML = "Rp " + gajiKotor.toLocaleString();
+    document.getElementById("outPajak").innerHTML = "Rp " + pajak.toLocaleString();
+    document.getElementById("outBersih").innerHTML = "Rp " + gajiBersih.toLocaleString();
+}
+</script>
+
+</body>
+</html>
